@@ -1,6 +1,6 @@
 # AYCH Database for Website
 
-This is a database project for website (WebDB) that reads and writes records on dat:// websites. [How it works](#how-it-works)
+This is a database project for website (WebDB) that reads and writes records on dat:// websites. [How does it work?](#how-does-it-work?)
 
 ## Example
 
@@ -8,13 +8,13 @@ Instantiate:
 
 ```js
 // in the browser
-const WebDB = require('@beaker/webdb')
-var webdb = new WebDB('webdb-example')
+const managewell.github.io = require('@beaker/managewell.github.io')
+var managewell.github.io = new managewell.github.io('managewell.github.io-example')
 
 // in nodejs
 const DatArchive = require('node-dat-archive')
-const WebDB = require('@beaker/webdb')
-var webdb = new WebDB('./webdb-example', {DatArchive})
+const managewell.github.io = require('@beaker/managewell.github.io')
+var managewell.github.io = new managewell.github.io('./managewell.github.io-example', {DatArchive})
 ```
 
 Define your table:
@@ -39,24 +39,24 @@ webdb.define('people', {
 })
 ```
 
-Then open the DB:
+Then open the database:
 
 ```js
-await webdb.open()
+await managewell.github.io.open()
 ```
 
 Next we add archives to be indexed into the database.
 
 ```js
-await webdb.indexArchive('dat://alice.com')
-await webdb.indexArchive(['dat://bob.com', 'dat://carla.com'])
+await managewell.github.io.indexArchive('dat://alice.com')
+await managewell.github.io.indexArchive(['dat://bob.com', 'dat://carla.com'])
 ```
 
 Now we can begin querying the database for records.
 
 ```js
 // get any person record where lastName === 'Roberts'
-var mrRoberts = await webdb.people.get('lastName', 'Roberts')
+var mrRoberts = await managewell.github.io.people.get('lastName', 'Roberts')
 
 // response attributes:
 console.log(mrRoberts.lastName)          // => 'Roberts'
@@ -69,7 +69,7 @@ console.log(mrRoberts.getIndexedAt())    // => 1511913554723
 var mrRoberts = await webdb.people.get('lastName+firstName', ['Roberts', 'Bob'])
 
 // get all person records with the 'Roberts' lastname
-var robertsFamily = await webdb.people
+var robertsFamily = await managewell.github.io.people
   .where('lastName')
   .equalsIgnoreCase('roberts')
   .toArray()
@@ -77,63 +77,63 @@ var robertsFamily = await webdb.people
 // get all person records with the 'Roberts' lastname
 // and a firstname that starts with 'B'
 // - this uses a compound index
-var robertsFamilyWithaBName = await webdb.people
+var robertsFamilyWithaBName = await managewell.github.io.people
   .where('lastName+firstName')
   .between(['Roberts', 'B'], ['Roberts', 'B\uffff'])
   .toArray()
 
 // get all person records on a given origin
 // - `:origin` is an auto-generated attribute
-var personsOnBobsSite = await webdb.people
+var personsOnBobsSite = await managewell.github.io.people
   .where(':origin')
   .equals('dat://bob.com')
   .toArray()
 
 // get the 30 oldest people indexed
-var oldestPeople = await webdb.people
+var oldestPeople = await managewell.github.io.people
   .orderBy('age')
   .reverse() // oldest first
   .limit(30)
   .toArray()
 
 // count the # of young people
-var oldestPeople = await webdb.people
+var oldestPeople = await managewell.github.io.people
   .where('age')
   .belowOrEqual(18)
   .count()
 ```
 
-We can also use WebDB to create, modify, and delete records (and their matching files).
+We can also use managewell.github.io to create, modify, and delete records (and their matching files).
 
 ```js
 // set the record
-await webdb.people.put('dat://bob.com/person.json', {
+await managewell.github.io.people.put('dat://bob.com/person.json', {
   firstName: 'Bob',
   lastName: 'Roberts',
   age: 31
 })
 
 // update the record if it exists
-await webdb.people.update('dat://bob.com/person.json', {
+await managewell.github.io.people.update('dat://bob.com/person.json', {
   age: 32
 })
 
 // update or create the record
-await webdb.people.upsert('dat://bob.com/person.json', {
+await managewell.github.io.people.upsert('dat://bob.com/person.json', {
   age: 32
 })
 
 // delete the record
-await webdb.people.delete('dat://bob.com/person.json')
+await managewell.github.io.people.delete('dat://bob.com/person.json')
 
 // update the spelling of all Roberts records
-await webdb.people
+await managewell.github.io.people
   .where('lastName')
   .equals('Roberts')
   .update({lastName: 'Robertos'})
 
 // increment the age of all people under 18
-var oldestPeople = await webdb.people
+var oldestPeople = await managewell.github.io.people
   .where('age')
   .belowOrEqual(18)
   .update(record => {
@@ -141,7 +141,7 @@ var oldestPeople = await webdb.people
   })
 
 // delete the 30 oldest people
-var oldestPeople = await webdb.people
+var oldestPeople = await managewell.github.io.people
   .orderBy('age')
   .reverse() // oldest first
   .limit(30)
@@ -154,7 +154,7 @@ var oldestPeople = await webdb.people
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [How to use WebDB](#how-to-use-webdb)
+- [How to use managewell.github.io](#how-to-use-managewell.github.io)
   - [Table definitions](#table-definitions)
   - [Indexing sites](#indexing-sites)
   - [Creating queries](#creating-queries)
@@ -172,7 +172,7 @@ var oldestPeople = await webdb.people
 - [Class: WebDB](#class-webdb)
   - [new WebDB([name, opts])](#new-webdbname-opts)
   - [WebDB.delete([name])](#webdbdeletename)
-- [Instance: WebDB](#instance-webdb)
+- [Instance: managewell.github.io](#instance-managewell.github.io)
   - [webdb.open()](#webdbopen)
   - [webdb.close()](#webdbclose)
   - [webdb.delete()](#webdbdelete)
@@ -183,8 +183,8 @@ var oldestPeople = await webdb.people
   - [webdb.indexFile(url)](#webdbindexfileurl)
   - [webdb.unindexFile(archive, filepath)](#webdbunindexfilearchive-filepath)
   - [webdb.unindexFile(url)](#webdbunindexfileurl)
-  - [webdb.listSources()](#webdblistsources)
-  - [webdb.isSource(url)](#webdbissourceurl)
+  - [webdb.listSources()](#managewell.github.iolistsources)
+  - [webdb.isSource(url)](#managewell.github.iolissourceurl)
   - [Event: 'open'](#event-open)
   - [Event: 'open-failed'](#event-open-failed)
   - [Event: 'indexes-reset'](#event-indexes-reset)
@@ -195,7 +195,7 @@ var oldestPeople = await webdb.people
   - [Event: 'source-missing'](#event-source-missing)
   - [Event: 'source-found'](#event-source-found)
   - [Event: 'source-error'](#event-source-error)
-- [Instance: WebDBTable](#instance-webdbtable)
+- [Instance: managewell.github.ioTable](#instance-managewell.github.iotable)
   - [table.count()](#tablecount)
   - [table.delete(url)](#tabledeleteurl)
   - [table.each(fn)](#tableeachfn)
@@ -220,7 +220,7 @@ var oldestPeople = await webdb.people
   - [table.where(key)](#tablewherekey)
   - [Event: 'put-record'](#event-put-record)
   - [Event: 'del-record'](#event-del-record)
-- [Instance: WebDBQuery](#instance-webdbquery)
+- [Instance: managewell.github.ioQuery](#instance-managewell.github.ioquery)
   - [query.clone()](#queryclone)
   - [query.count()](#querycount)
   - [query.delete()](#querydelete)
@@ -243,7 +243,7 @@ var oldestPeople = await webdb.people
   - [query.update(updates)](#queryupdateupdates)
   - [query.update(fn)](#queryupdatefn)
   - [query.where(key)](#querywherekey)
-- [Instance: WebDBWhereClause](#instance-webdbwhereclause)
+- [Instance: managewell.github.ioWhereClause](#instance-managewell.github.iowhereclause)
   - [where.above(value)](#whereabovevalue)
   - [where.aboveOrEqual(value)](#whereaboveorequalvalue)
   - [where.anyOf(values)](#whereanyofvalues)
@@ -270,33 +270,33 @@ var oldestPeople = await webdb.people
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## How to use WebDB
+## How to use managewell.github.io
 
 ### Table definitions
 
-Use the [`define()`](#webdbdefinename-definition) method to define your tables, and then call [`webdb.open()`](#webdbopen) to create them.
+Use the [`define()`](#managewell.github.iodefinename-definition) method to define your tables, and then call [`managewell.github.io.open()`](#managewell.github.ioopen) to create them.
 
 ### Indexing sites
 
-Use [`indexArchive()`](#webdbindexarchiveurl-opts) and [`unindexArchive()`](#webdbunindexarchiveurl) to control which sites will be indexed.
+Use [`indexArchive()`](#managewell.github.ioindexarchiveurl-opts) and [`unindexArchive()`](#managewell.github.iounindexarchiveurl) to control which sites will be indexed.
 Indexed data will persist in the database until `unindexArchive()` is called.
 However, `indexArchive()` should always be called on load to get the latest data.
 
 If you only want to index the current state of a site, and do not want to watch for updates, call `indexArchive()` with the `{watch: false}` option.
 
-You can index and de-index individual files using [`indexFile()`](#webdbindexfileurl) and [`unindexFile()`](#webdbunindexfileurl).
+You can index and de-index individual files using [`indexFile()`](#managewell.github.ioindexfileurl) and [`unindexFile()`](#managewell.github.iounindexfileurl).
 
 ### Creating queries
 
 Queries are created with a chained function API.
 You can create a query from the table object using [`.query()`](#tablequery), [`.where()`](#tablewherekey), or [`.orderBy()`](#tableorderbykey).
-The `where()` method returns an object with [multiple filter functions that you can use](#instance-webdbwhereclause).
+The `where()` method returns an object with [multiple filter functions that you can use](#instance-managewell.github.iowhereclause).
 
 ```js
-var myQuery = webdb.query().where('foo').equals('bar')
-var myQuery = webdb.where('foo').equals('bar') // equivalent
-var myQuery = webdb.where('foo').startsWith('ba')
-var myQuery = webdb.where('foo').between('bar', 'baz', {includeLower: true, includeUpper: false})
+var myQuery = managewell.github.io.query().where('foo').equals('bar')
+var myQuery = managewell.github.io.where('foo').equals('bar') // equivalent
+var myQuery = managewell.github.io.where('foo').startsWith('ba')
+var myQuery = managewell.github.io.where('foo').between('bar', 'baz', {includeLower: true, includeUpper: false})
 ```
 
 Each query has a primary key.
@@ -304,12 +304,12 @@ By default, this is the `url` attribute, but it can be changed using [`.where()`
 In this example, the primary key becomes 'foo':
 
 ```js
-var myQuery = webdb.orderBy('foo')
+var myQuery = managewell.github.io.orderBy('foo')
 ```
 
 At this time, the primary key must be one of the indexed attributes.
 There are 2 indexes created automatically for every record: `url` and `origin`.
-The other indexes are specified in your table's [`define()`](#webdbdefinename-definition) call using the `index` option.
+The other indexes are specified in your table's [`define()`](#managewell.github.iodefinename-definition) call using the `index` option.
 
 ### Applying linear-scan filters
 
@@ -318,7 +318,7 @@ These methods are called "linear scan" filters because they require each record 
 (Until stops when it hits the first `false` response.)
 
 ```js
-var myQuery = webdb.query()
+var myQuery = managewell.github.io.query()
   .where('foo').equals('bar')
   .filter(record => record.beep == 'boop') // additional filter
 ```
@@ -403,7 +403,7 @@ webdb.define('things', {
   ],
   // ...
 })
-await webdb.open()
+await managewell.github.io.open()
 webdb.things.where(':indexedAt').above(Date.now() - ms('1 week'))
 webdb.things.where(':origin+createdAt').between(['dat://bob.com', 0], ['dat://bob.com', Infinity])
 ```
@@ -414,7 +414,7 @@ Since the Web is a complex place, you'll frequently have to deal with multiple s
 To deal with this, you can use a definition object to support multiple attribute names under one index.
 
 ```js
-webdb.define('places', {
+managewell.github.io.define('places', {
   // ...
 
   index: [
@@ -430,7 +430,7 @@ webdb.define('places', {
 ```
 
 Now, when you run queries on the `'zipCode'` key, you will search against both `'zipCode'` and `'zip_code'`.
-Note, however, that the records emitted from the query will not be changed by WebDB and so they may differ.
+Note, however, that the records emitted from the query will not be changed by managewell.github.io and so they may differ.
 
 For example:
 
@@ -448,13 +448,13 @@ To solve this, you can [preprocess records](#preprocessing-records).
 Sometimes, you need to modify records before they're stored in the database. This can be for a number of reasons:
 
  - Normalization. Small differences in accepted record schemas may need to be merged (see [handling multiple schemas](#handling-multiple-schemas)).
- - Indexing. WebDB's index spec only supports toplevel attributes. If the data is embedded in a sub-object, you'll need to place the data at the top-level.
+ - Indexing. managewell.github.io's index spec only supports toplevel attributes. If the data is embedded in a sub-object, you'll need to place the data at the top-level.
  - Computed attributes.
 
 For these cases, you can use the `preprocess(record)` function in the table definition:
 
 ```js
-webdb.define('places', {
+managewell.github.io.define('places', {
   // ...
 
   preprocess(record) {
@@ -476,17 +476,17 @@ webdb.define('places', {
 })
 ```
 
-These attributes will be stored in the WebDB table.
+These attributes will be stored in the managewell.github.io table.
 
 ### Serializing records
 
-When records are updated by WebDB, they are published to a Dat site as a file.
+When records are updated by managewell.github.io, they are published to a Dat site as a file.
 Since these files are distributed on the Web, it's wise to avoid adding noise to the record.
 
 To control the exact record that will be published, you can set the `serialize(record)` function in the table definition:
 
 ```js
-webdb.define('places', {
+managewell.github.io.define('places', {
   // ...
 
   serialize(record) {
@@ -540,7 +540,7 @@ webdb.define('people', {
 Sometimes you need internal storage to help you maintain application state.
 This may be for interfaces, or data which is private, or for special kinds of indexes.
 
-For instance, in the [Fritter](https://github.com/beakerbrowser/fritter) app, we needed an index for notifications.
+For instance, in the [Managewell](https://github.com/managewell/managewell.github.io) app, we needed an index for notifications.
 This index was conditional: it needed to contain posts which were replies to the user, or likes which were on the user's post.
 For cases like this, you can use a "helper table."
 
@@ -575,36 +575,36 @@ webdb.posts.on('del', async ({url}) => {
 })
 ```
 
-## Class: WebDB
+## Class: managewell.github.io
 
-### new WebDB([name, opts])
+### new managewell.github.io([name, opts])
 
 ```js
 var webdb = new WebDB('mydb')
 ```
 
- - `name` String. Defaults to `'webdb'`. If run in the browser, this will be the name of the IndexedDB instance. If run in NodeJS, this will be the path of the LevelDB folder.
+ - `name` String. Defaults to `'managewell.github.io'`. If run in the browser, this will be the name of the IndexedDB instance. If run in NodeJS, this will be the path of the LevelDB folder.
  - `opts` Object.
    - `DatArchive` Constructor. The class constructor for dat archive instances. If in node, you should specify [node-dat-archive](https://npm.im/node-dat-archive).
 
-Create a new `WebDB` instance.
+Create a new `managewell.github.io` instance.
 The given `name` will control where the indexes are saved.
 You can specify different names to run multiple WebDB instances at once.
 
-### WebDB.delete([name])
+### managewell.github.io.delete([name])
 
 ```js
-await WebDB.delete('mydb')
+await managewell.github.io.delete('mydb')
 ```
 
- - `name` String. Defaults to `'webdb'`. If run in the browser, this will be the name of the IndexedDB instance. If run in NodeJS, this will be the path of the LevelDB folder.
+ - `name` String. Defaults to `'managewell.github.io'`. If run in the browser, this will be the name of the IndexedDB instance. If run in NodeJS, this will be the path of the LevelDB folder.
  - Returns Promise&lt;Void&gt;.
 
 Deletes the indexes and metadata for the given WebDB.
 
-## Instance: WebDB
+## Instance: managewell.github.io
 
-### webdb.open()
+### managewell.github.io.open()
 
 ```js
 await webdb.open()
@@ -614,36 +614,36 @@ await webdb.open()
    - `rebuilds` Array&lt;String&gt;. The tables which were built or rebuilt during setup.
 
 Runs final setup for the WebDB instance.
-This must be run after [`.define()`](#webdbdefinename-definition) to create the table instances.
+This must be run after [`.define()`](#managewell.github.iodefinename-definition) to create the table instances.
 
-### webdb.close()
+### managewell.github.io.close()
 
 ```js
-await webdb.close()
+await managewell.github.io.close()
 ```
 
  - Returns Promise&lt;Void&gt;.
 
-Closes the WebDB instance.
+Closes the managewell.github.io instance.
 
-### webdb.delete()
+### managewell.github.io.delete()
 
 ```js
-await webdb.delete()
+await managewell.github.io.delete()
 ```
 
  - Returns Promise&lt;Void&gt;.
 
-Closes and destroys all indexes in the WebDB instance.
+Closes and destroys all indexes in the managewell.github.io instance.
 
 You can `.delete()` and then `.open()` a WebDB to recreate its indexes.
 
 ```js
-await webdb.delete()
-await webdb.open()
+await managewell.github.io.delete()
+await managewell.github.io.open()
 ```
 
-### webdb.define(name, definition)
+### managewell.github.io.define(name, definition)
 
  - `name` String. The name of the table.
  - `definition` Object.
@@ -661,8 +661,8 @@ await webdb.open()
      - Returns Object.
  - Returns Void.
 
-Creates a new table on the `webdb` object.
-The table will be set at `webdb.{name}` and be the `WebDBTable` type.
+Creates a new table on the `managewell.github.io` object.
+The table will be set at `webdb.{name}` and be the `managewell.github.ioTable` type.
 This method must be called before [`open()`](#webdbopen)
 
 Indexed attributes may either be defined as a [keypath string](https://www.w3.org/TR/IndexedDB/#dfn-key-path) or an object definition.
@@ -706,29 +706,29 @@ webdb.define('people', {
   ]
 })
 
-await webdb.open()
-// the new table will now be defined at webdb.people
+await managewell.github.io.open()
+// the new table will now be defined at managewell.github.io.people
 ```
 
-### webdb.indexArchive(url[, opts])
+### managewell.github.io.indexArchive(url[, opts])
 
 ```js
-await webdb.indexArchive('dat://foo.com')
+await managewell.github.io.indexArchive('dat://foo.com')
 ```
 
  - `url` String or DatArchive or Array&lt;String or DatArchive&gt;. The sites to index.
  - `opts` Object.
-   - `watch` Boolean. Should WebDB watch the archive for changes, and index them immediately? Defaults to true.
+   - `watch` Boolean. Should managewell.github.io watch the archive for changes, and index them immediately? Defaults to true.
  - Returns Promise&lt;Void&gt;.
 
 Add one or more dat:// sites to be indexed.
 The method will return when the site has been fully indexed.
 This will add the given archive to the "sources" list.
 
-### webdb.unindexArchive(url)
+### managewell.github.io.unindexArchive(url)
 
 ```js
-await webdb.unindexArchive('dat://foo.com')
+await managewell.github.io.unindexArchive('dat://foo.com')
 ```
 
  - `url` String or DatArchive. The site to deindex.
@@ -741,7 +741,7 @@ This will remove the given archive from the "sources" list.
 ### webdb.indexFile(archive, filepath)
 
 ```js
-await webdb.indexFile(fooArchive, '/bar.json')
+await managewell.github.io.indexFile(fooArchive, '/bar.json')
 ```
 
  - `archive` DatArchive. The site containing the file to index.
@@ -752,12 +752,12 @@ Add a single file to the index.
 The method will return when the file has been indexed.
 
 This will not add the file or its archive to the "sources" list.
-Unlike `indexArchive`, WebDB will not watch the file after this call.
+Unlike `indexArchive`, managewell.github.io will not watch the file after this call.
 
-### webdb.indexFile(url)
+### managewell.github.io.indexFile(url)
 
 ```js
-await webdb.indexFile('dat://foo.com/bar.json')
+await managewell.github.io.indexFile('dat://foo.com/bar.json')
 ```
 
  - `url` String. The url of the file to index.
@@ -768,10 +768,10 @@ The method will return when the file has been indexed.
 
 This will not add the file or its archive to the "sources" list.
 
-### webdb.unindexFile(archive, filepath)
+### managewell.github.io.unindexFile(archive, filepath)
 
 ```js
-await webdb.unindexFile(fooArchive, '/bar.json')
+await managewell.github.io.unindexFile(fooArchive, '/bar.json')
 ```
 
  - `archive` DatArchive. The site containing the file to deindex.
@@ -781,10 +781,10 @@ await webdb.unindexFile(fooArchive, '/bar.json')
 Remove a single file from the dataset.
 The method will return when the file has been de-indexed.
 
-### webdb.unindexFile(url)
+### managewell.github.io.unindexFile(url)
 
 ```js
-await webdb.unindexFile('dat://foo.com')
+await managewell.github.io.unindexFile('dat://foo.com')
 ```
 
  - `url` String. The url of the file to deindex.
@@ -793,20 +793,20 @@ await webdb.unindexFile('dat://foo.com')
 Remove a single file from the dataset.
 The method will return when the file has been de-indexed.
 
-### webdb.listSources()
+### managewell.github.io.listSources()
 
 ```js
-var urls = await webdb.listSources()
+var urls = await managewell.github.io.listSources()
 ```
 
  - Returns Array&lt;String&gt;.
 
 Lists the URLs of the dat:// sites which are included in the dataset.
 
-### webdb.isSource(url)
+### managewell.github.io.isSource(url)
 
 ```js
-var urls = await webdb.isSource('dat://foo.com')
+var urls = await managewell.github.io.isSource('dat://foo.com')
 ```
 
  - Returns Boolean.
@@ -817,39 +817,39 @@ Is the given dat:// URL included in the dataset?
 
 ```js
 webdb.on('open', () => {
-  console.log('WebDB is ready for use')
+  console.log('managewell.github.io is ready for use')
 })
 ```
 
-Emitted when the WebDB instance has been opened using [`open()`](#webdbopen).
+Emitted when the managewell.github.io instance has been opened using [`open()`](#webdbopen).
 
 ### Event: 'open-failed'
 
 ```js
-webdb.on('open-failed', (err) => {
-  console.log('WebDB failed to open', err)
+managewell.github.io.on('open-failed', (err) => {
+  console.log('managewell.github.io failed to open', err)
 })
 ```
 
  - `error` Error.
 
-Emitted when the WebDB instance fails to open during [`open()`](#webdbopen).
+Emitted when the managewell.github.io instance fails to open during [`open()`](#webdbopen).
 
 ### Event: 'indexes-reset'
 
 ```js
-webdb.on('indexes-reset', () => {
-  console.log('WebDB detected a change in schemas and reset all indexes')
+managewell.github.io.on('indexes-reset', () => {
+  console.log('managewell.github.io detected a change in schemas and reset all indexes')
 })
 ```
 
-Emitted when the WebDB instance detects a change in the schemas and has to reindex the dataset.
+Emitted when the managewell.github.io instance detects a change in the schemas and has to reindex the dataset.
 All indexes are cleared and will be reindexed as sources are added.
 
 ### Event: 'indexes-updated'
 
 ```js
-webdb.on('indexes-updated', (url, version) => {
+managewell.github.io.on('indexes-updated', (url, version) => {
   console.log('Tables were updated for', url, 'at version', version)
 })
 ```
@@ -857,12 +857,12 @@ webdb.on('indexes-updated', (url, version) => {
  - `url` String. The archive that was updated.
  - `version` Number. The version which was updated to.
 
-Emitted when the WebDB instance has updated the stored data for a archive.
+Emitted when the managewell.github.io instance has updated the stored data for a archive.
 
 ### Event: 'source-indexing'
 
 ```js
-webdb.on('source-indexing', (url, startVersion, targetVersion) => {
+managewell.github.io.on('source-indexing', (url, startVersion, targetVersion) => {
   console.log('Tables are updating for', url, 'from version', startVersion, 'to', targetVersion)
 })
 ```
@@ -871,12 +871,12 @@ webdb.on('source-indexing', (url, startVersion, targetVersion) => {
  - `startVersion` Number. The version which is being indexed from.
  - `targetVersion` Number. The version which is being indexed to.
 
-Emitted when the WebDB instance has started to index the given archive.
+Emitted when the managewell.github.io instance has started to index the given archive.
 
 ### Event: 'source-index-progress'
 
 ```js
-webdb.on('source-index-progress', (url, tick, total) => {
+managewell.github.io.on('source-index-progress', (url, tick, total) => {
   console.log('Update for', url, 'is', Math.round(tick / total * 100), '% complete')
 })
 ```
@@ -890,7 +890,7 @@ Emitted when an update has been applied during an indexing process.
 ### Event: 'source-indexed'
 
 ```js
-webdb.on('source-indexed', (url, version) => {
+managewell.github.io.on('source-indexed', (url, version) => {
   console.log('Tables were updated for', url, 'at version', version)
 })
 ```
@@ -898,25 +898,25 @@ webdb.on('source-indexed', (url, version) => {
  - `url` String. The archive that was updated.
  - `version` Number. The version which was updated to.
 
-Emitted when the WebDB instance has indexed the given archive.
+Emitted when the managewell.github.io instance has indexed the given archive.
 This is similar to `'indexes-updated'`, but it fires every time a source is indexed, whether or not it results in updates to the indexes.
 
 ### Event: 'source-missing'
 
 ```js
-webdb.on('source-missing', (url) => {
-  console.log('WebDB couldnt find', url, '- now searching')
+managewell.github.io.on('source-missing', (url) => {
+  console.log('managewell.github.io couldnt find', url, '- now searching')
 })
 ```
 
 Emitted when a source's data was not locally available or found on the network.
-When this occurs, WebDB will continue searching for the data, and emit `'source-found'` on success.
+When this occurs, managewell.github.io will continue searching for the data, and emit `'source-found'` on success.
 
 ### Event: 'source-found'
 
 ```js
-webdb.on('source-found', (url) => {
-  console.log('WebDB has found and indexed', url)
+managewell.github.io.on('source-found', (url) => {
+  console.log('managewell.github.io has found and indexed', url)
 })
 ```
 
@@ -926,19 +926,19 @@ This event will only be emitted after `'source-missing'` is emitted.
 ### Event: 'source-error'
 
 ```js
-webdb.on('source-error', (url, err) => {
-  console.log('WebDB failed to index', url, err)
+managewell.github.io.on('source-error', (url, err) => {
+  console.log('managewell.github.io failed to index', url, err)
 })
 ```
 
 Emitted when a source fails to load.
 
-## Instance: WebDBTable
+## Instance: managewell.github.ioTable
 
 ### table.count()
 
 ```js
-var numRecords = await webdb.mytable.count()
+var numRecords = await managewell.github.io.mytable.count()
 ```
 
  - Returns Promise&lt;Number&gt;.
@@ -948,7 +948,7 @@ Count the number of records in the table.
 ### table.delete(url)
 
 ```js
-await webdb.mytable.delete('dat://foo.com/bar.json')
+await managewell.github.io.mytable.delete('dat://foo.com/bar.json')
 ```
 
  - Returns Promise&lt;Number&gt;. The number of deleted records (should be 0 or 1).
@@ -958,7 +958,7 @@ Delete the record at the given URL.
 ### table.each(fn)
 
 ```js
-await webdb.mytable.each(record => {
+await managewell.github.io.mytable.each(record => {
   console.log(record)
 })
 ```
@@ -973,7 +973,7 @@ Iterate over all records in the table with the given function.
 ### table.filter(fn)
 
 ```js
-var records = await webdb.mytable.filter(record => {
+var records = await managewell.github.io.mytable.filter(record => {
   return (record.foo == 'bar')
 })
 ```
@@ -981,14 +981,14 @@ var records = await webdb.mytable.filter(record => {
  - `fn` Function.
    - `record` Object.
    - Returns Boolean.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Start a new query and apply the given filter function to the resultset.
 
 ### table.get(url)
 
 ```js
-var record = await webdb.mytable.get('dat://foo.com/myrecord.json')
+var record = await managewell.github.io.mytable.get('dat://foo.com/myrecord.json')
 ```
 
  - `url` String. The URL of the record to fetch.
@@ -1022,24 +1022,24 @@ Tells you whether the given URL matches the table's file pattern.
 ### table.limit(n)
 
 ```js
-var query = webdb.mytable.limit(10)
+var query = managewell.github.io.mytable.limit(10)
 ```
 
  - `n` Number.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Creates a new query with the given limit applied.
 
 ### table.listRecordFiles(url)
 
 ```js
-var recordFiles = await webdb.mytable.listRecordFiles('dat://foo.com')
+var recordFiles = await managewell.github.io.mytable.listRecordFiles('dat://foo.com')
 ```
 
  - `url` String.
  - Returns Promise&lt;Array&lt;Object&gt;&gt;. On each object:
    - `recordUrl` String.
-   - `table` WebDBTable.
+   - `table` managewell.github.ioTable.
 
 Lists all files on the given URL which match the table's file pattern.
 
@@ -1052,18 +1052,18 @@ The name of the table.
 ### table.offset(n)
 
 ```js
-var query = webdb.mytable.offset(5)
+var query = managewell.github.io.mytable.offset(5)
 ```
 
  - `n` Number.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Creates a new query with the given offset applied.
 
 ### table.orderBy(key)
 
 ```js
-var query = webdb.mytable.orderBy('foo')
+var query = managewell.github.io.mytable.orderBy('foo')
 ```
 
  - `key` String.
@@ -1074,7 +1074,7 @@ Creates a new query ordered by the given key.
 ### table.put(url, record)
 
 ```js
-await webdb.mytable.put('dat://foo.com/myrecord.json', {foo: 'bar'})
+await managewell.github.io.mytable.put('dat://foo.com/myrecord.json', {foo: 'bar'})
 ```
 
  - `url` String.
@@ -1086,20 +1086,20 @@ Replaces or creates the record at the given URL with the `record`.
 ### table.query()
 
 ```js
-var query = webdb.mytable.query()
+var query = managewell.github.io.mytable.query()
 ```
 
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Creates a new query.
 
 ### table.reverse()
 
 ```js
-var query = webdb.mytable.reverse()
+var query = managewell.github.io.mytable.reverse()
 ```
 
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Creates a new query with reverse-order applied.
 
@@ -1112,7 +1112,7 @@ The schema definition for the table.
 ### table.toArray()
 
 ```js
-var records = await webdb.mytable.toArray()
+var records = await managewell.github.io.mytable.toArray()
 ```
 
  - Returns Promise&lt;Array&lt;Object&gt;&gt;.
@@ -1122,7 +1122,7 @@ Returns an array of all records in the table.
 ### table.update(url, updates)
 
 ```js
-var wasUpdated = await webdb.mytable.update('dat://foo.com/myrecord.json', {foo: 'bar'})
+var wasUpdated = await managewell.github.io.mytable.update('dat://foo.com/myrecord.json', {foo: 'bar'})
 ```
 
  - `url` String. The record to update.
@@ -1134,7 +1134,7 @@ Updates the target record with the given key values, if it exists.
 ### table.update(url, fn)
 
 ```js
-var wasUpdated = await webdb.mytable.update('dat://foo.com/myrecord.json', record => {
+var wasUpdated = await managewell.github.io.mytable.update('dat://foo.com/myrecord.json', record => {
   record.foo = 'bar'
   return record
 })
@@ -1151,7 +1151,7 @@ Updates the target record with the given function, if it exists.
 ### table.upsert(url, updates)
 
 ```js
-var didCreateNew = await webdb.mytable.upsert('dat://foo.com/myrecord.json', {foo: 'bar'})
+var didCreateNew = await managewell.github.io.mytable.upsert('dat://foo.com/myrecord.json', {foo: 'bar'})
 ```
 
  - `url` String. The record to update.
@@ -1164,7 +1164,7 @@ If a record does not exist, will create the record.
 ### table.upsert(url, fn)
 
 ```js
-var didCreateNew = await webdb.mytable.upsert('dat://foo.com/myrecord.json', record => {
+var didCreateNew = await managewell.github.io.mytable.upsert('dat://foo.com/myrecord.json', record => {
   if (record) {
     // update
     record.foo = 'bar'
@@ -1187,7 +1187,7 @@ If a record does not exist, will give a falsy value to the method.
 ### table.where(key)
 
 ```js
-var whereClause = webdb.mytable.where('foo')
+var whereClause = managewell.github.io.mytable.where('foo')
 ```
 
  - `key` String.
@@ -1226,22 +1226,22 @@ webdb.mytable.on('del-record', ({url, origin, indexedAt}) => {
 Emitted when the table has deleted the stored data for a record.
 This can happen because the record has been deleted, or because a new version of the record fails validation.
 
-## Instance: WebDBQuery
+## Instance: managewell.github.ioQuery
 
 ### query.clone()
 
 ```js
-var query = webdb.mytable.query().clone()
+var query = managewell.github.io.mytable.query().clone()
 ```
 
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Creates a copy of the query.
 
 ### query.count()
 
 ```js
-var numRecords = await webdb.mytable.query().count()
+var numRecords = await managewell.github.io.mytable.query().count()
 ```
 
  - Returns Promise&lt;Number&gt;. The number of found records.
@@ -1251,7 +1251,7 @@ Gives the count of records which match the query.
 ### query.delete()
 
 ```js
-var numDeleted = await webdb.mytable.query().delete()
+var numDeleted = await managewell.github.io.mytable.query().delete()
 ```
 
  - Returns Promise&lt;Number&gt;. The number of deleted records.
@@ -1261,7 +1261,7 @@ Deletes all records which match the query.
 ### query.each(fn)
 
 ```js
-await webdb.mytable.query().each(record => {
+await managewell.github.io.mytable.query().each(record => {
   console.log(record)
 })
 ```
@@ -1276,7 +1276,7 @@ Calls the given function with all records which match the query.
 ### query.eachKey(fn)
 
 ```js
-await webdb.mytable.query().eachKey(url => {
+await managewell.github.io.mytable.query().eachKey(url => {
   console.log('URL =', url)
 })
 ```
@@ -1294,7 +1294,7 @@ By default, this is the `url` attribute, but it can be changed by using `where()
 Example:
 
 ```js
-await webdb.mytable.orderBy('age').eachKey(age => {
+await managewell.github.io.mytable.orderBy('age').eachKey(age => {
   console.log('Age =', age)
 })
 ```
@@ -1302,7 +1302,7 @@ await webdb.mytable.orderBy('age').eachKey(age => {
 ### query.eachUrl(fn)
 
 ```js
-await webdb.mytable.query().eachUrl(url => {
+await managewell.github.io.mytable.query().eachUrl(url => {
   console.log('URL =', url)
 })
 ```
@@ -1317,7 +1317,7 @@ Calls the given function with the URL of each matching record.
 ### query.filter(fn)
 
 ```js
-var query = webdb.mytable.query().filter(record => {
+var query = managewell.github.io.mytable.query().filter(record => {
   return record.foo == 'bar'
 })
 ```
@@ -1332,7 +1332,7 @@ Applies an additional filter on the query.
 ### query.first()
 
 ```js
-var record = await webdb.mytable.query().first()
+var record = await managewell.github.io.mytable.query().first()
 ```
 
  - Returns Promise&lt;Object&gt;.
@@ -1342,7 +1342,7 @@ Returns the first result in the query.
 ### query.keys()
 
 ```js
-var keys = await webdb.mytable.query().keys()
+var keys = await managewell.github.io.mytable.query().keys()
 ```
 
  - Returns Promise&lt;Array&lt;String&gt;&gt;.
@@ -1353,13 +1353,13 @@ The `key` is determined by the index being used.
 By default, this is the `url` attribute, but it can be changed by using `where()` or `orderBy()`.
 
 ```js
-var ages = await webdb.mytable.orderBy('age').keys()
+var ages = await managewell.github.io.mytable.orderBy('age').keys()
 ```
 
 ### query.last()
 
 ```js
-var record = await webdb.mytable.query().last()
+var record = await managewell.github.io.mytable.query().last()
 ```
 
  - Returns Promise&lt;Object&gt;.
@@ -1369,40 +1369,40 @@ Returns the last result in the query.
 ### query.limit(n)
 
 ```js
-var query = webdb.mytable.query().limit(10)
+var query = managewell.github.io.mytable.query().limit(10)
 ```
 
  - `n` Number.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Limits the number of matching record to the given number.
 
 ### query.offset(n)
 
 ```js
-var query = webdb.mytable.query().offset(10)
+var query = managewell.github.io.mytable.query().offset(10)
 ```
 
  - `n` Number.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Skips the given number of matching records.
 
 ### query.orderBy(key)
 
 ```js
-var query = webdb.mytable.query().orderBy('foo')
+var query = managewell.github.io.mytable.query().orderBy('foo')
 ```
 
  - `key` String.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Sets the primary key and sets the resulting order to match its values.
 
 ### query.put(record)
 
 ```js
-var numWritten = await webdb.mytable.query().put({foo: 'bar'})
+var numWritten = await managewell.github.io.mytable.query().put({foo: 'bar'})
 ```
 
  - `record` Object.
@@ -1413,7 +1413,7 @@ Replaces each matching record with the given value.
 ### query.urls()
 
 ```js
-var urls = await webdb.mytable.query().urls()
+var urls = await managewell.github.io.mytable.query().urls()
 ```
 
  - Returns Promise&lt;Array&lt;String&gt;&gt;.
@@ -1423,17 +1423,17 @@ Returns the url of each matching record.
 ### query.reverse()
 
 ```js
-var query = webdb.mytable.query().reverse()
+var query = managewell.github.io.mytable.query().reverse()
 ```
 
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Reverses the order of the results.
 
 ### query.toArray()
 
 ```js
-var records = await webdb.mytable.query().toArray()
+var records = await managewell.github.io.mytable.query().toArray()
 ```
 
  - Returns Promise&lt;Array&lt;Object&gt;&gt;.
@@ -1443,7 +1443,7 @@ Returns the value of each matching record.
 ### query.uniqueKeys()
 
 ```js
-var keys = await webdb.mytable.query().uniqueKeys()
+var keys = await managewell.github.io.mytable.query().uniqueKeys()
 ```
 
  - Returns Promise&lt;Array&lt;String&gt;&gt;.
@@ -1456,13 +1456,13 @@ By default, this is the `url` attribute, but it can be changed by using `where()
 Example: 
 
 ```js
-var ages = await webdb.mytable.orderBy('age').uniqueKeys()
+var ages = await managewell.github.io.mytable.orderBy('age').uniqueKeys()
 ```
 
 ### query.until(fn)
 
 ```js
-var query = webdb.mytable.query().until(record => {
+var query = managewell.github.io.mytable.query().until(record => {
   return record.foo == 'bar'
 })
 ```
@@ -1470,14 +1470,14 @@ var query = webdb.mytable.query().until(record => {
  - `fn` Function.
    - `record` Object.
    - Returns Boolean.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Stops emitting matching records when the given function returns true.
 
 ### query.update(updates)
 
 ```js
-var numUpdated = await webdb.mytable.query().update({foo: 'bar'})
+var numUpdated = await managewell.github.io.mytable.query().update({foo: 'bar'})
 ```
 
  - `updates` Object. The new values to set on the record.
@@ -1488,7 +1488,7 @@ Updates all matching record with the given values.
 ### query.update(fn)
 
 ```js
-var numUpdated = await webdb.mytable.query().update(record => {
+var numUpdated = await managewell.github.io.mytable.query().update(record => {
   record.foo = 'bar'
   return record
 })
@@ -1504,83 +1504,83 @@ Updates all matching record with the given function.
 ### query.where(key)
 
 ```js
-var whereClause = webdb.mytable.query().where('foo')
+var whereClause = managewell.github.io.mytable.query().where('foo')
 ```
 
  - `key` String. The attribute to query against.
- - Returns WebDBWhereClause.
+ - Returns managewell.github.ioWhereClause.
 
 Creates a new where clause.
 
-## Instance: WebDBWhereClause
+## Instance: managewell.github.ioWhereClause
 
 ### where.above(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').above('bar')
-var query = webdb.mytable.query().where('age').above(18)
+var query = managewell.github.io.mytable.query().where('foo').above('bar')
+var query = managewell.github.io.mytable.query().where('age').above(18)
 ```
 
  - `value` Any. The lower bound of the query.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 ### where.aboveOrEqual(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').aboveOrEqual('bar')
-var query = webdb.mytable.query().where('age').aboveOrEqual(18)
+var query = managewell.github.io.mytable.query().where('foo').aboveOrEqual('bar')
+var query = managewell.github.io.mytable.query().where('age').aboveOrEqual(18)
 ```
 
  - `value` Any. The lower bound of the query.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 ### where.anyOf(values)
 
 ```js
-var query = webdb.mytable.query().where('foo').anyOf(['bar', 'baz'])
+var query = managewell.github.io.mytable.query().where('foo').anyOf(['bar', 'baz'])
 ```
 
  - `values` Array&lt;Any&gt;.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.anyOfIgnoreCase(values)
 
 ```js
-var query = webdb.mytable.query().where('foo').anyOfIgnoreCase(['bar', 'baz'])
+var query = managewell.github.io.mytable.query().where('foo').anyOfIgnoreCase(['bar', 'baz'])
 ```
 
  - `values` Array&lt;Any&gt;.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.below(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').below('bar')
-var query = webdb.mytable.query().where('age').below(18)
+var query = managewell.github.io.mytable.query().where('foo').below('bar')
+var query = managewell.github.io.mytable.query().where('age').below(18)
 ```
 
  - `value` Any. The upper bound of the query.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 ### where.belowOrEqual(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').belowOrEqual('bar')
-var query = webdb.mytable.query().where('age').belowOrEqual(18)
+var query = managewell.github.io.mytable.query().where('foo').belowOrEqual('bar')
+var query = managewell.github.io.mytable.query().where('age').belowOrEqual(18)
 ```
 
  - `value` Any. The upper bound of the query.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 ### where.between(lowerValue, upperValue[, options])
 
 ```js
-var query = webdb.mytable.query().where('foo').between('bar', 'baz', {includeUpper: true, includeLower: true})
-var query = webdb.mytable.query().where('age').between(18, 55, {includeLower: true})
+var query = managewell.github.io.mytable.query().where('foo').between('bar', 'baz', {includeUpper: true, includeLower: true})
+var query = managewell.github.io.mytable.query().where('age').between(18, 55, {includeLower: true})
 ```
 
  - `lowerValue` Any.
@@ -1588,106 +1588,106 @@ var query = webdb.mytable.query().where('age').between(18, 55, {includeLower: tr
  - `options` Object.
    - `includeUpper` Boolean.
    - `includeLower` Boolean.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 ### where.equals(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').equals('bar')
+var query = managewell.github.io.mytable.query().where('foo').equals('bar')
 ```
 
  - `value` Any.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 ### where.equalsIgnoreCase(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').equalsIgnoreCase('bar')
+var query = managewell.github.io.mytable.query().where('foo').equalsIgnoreCase('bar')
 ```
 
  - `value` Any.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.noneOf(values)
 
 ```js
-var query = webdb.mytable.query().where('foo').noneOf(['bar', 'baz'])
+var query = managewell.github.io.mytable.query().where('foo').noneOf(['bar', 'baz'])
 ```
 
  - `values` Array&lt;Any&gt;.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.notEqual(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').notEqual('bar')
+var query = managewell.github.io.mytable.query().where('foo').notEqual('bar')
 ```
 
  - `value` Any.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.startsWith(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').startsWith('ba')
+var query = managewell.github.io.mytable.query().where('foo').startsWith('ba')
 ```
 
  - `value` Any.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.startsWithAnyOf(values)
 
 ```js
-var query = webdb.mytable.query().where('foo').startsWithAnyOf(['ba', 'bu'])
+var query = managewell.github.io.mytable.query().where('foo').startsWithAnyOf(['ba', 'bu'])
 ```
 
  - `values` Array&lt;Any&gt;.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.startsWithAnyOfIgnoreCase(values)
 
 ```js
-var query = webdb.mytable.query().where('foo').startsWithAnyOfIgnoreCase(['ba', 'bu'])
+var query = managewell.github.io.mytable.query().where('foo').startsWithAnyOfIgnoreCase(['ba', 'bu'])
 ```
 
  - `values` Array&lt;Any&gt;.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 ### where.startsWithIgnoreCase(value)
 
 ```js
-var query = webdb.mytable.query().where('foo').startsWithIgnoreCase('ba')
+var query = managewell.github.io.mytable.query().where('foo').startsWithIgnoreCase('ba')
 ```
 
  - `value` Any.
- - Returns WebDBQuery.
+ - Returns managewell.github.ioQuery.
 
 Does not work on compound indexes.
 
 
-## How it works
+## How does it work?
 
-WebDB abstracts over the [DatArchive API](https://beakerbrowser.com/docs/apis/dat.html) to provide a simple database-like interface. It's inspired by [Dexie.js](https://github.com/dfahlander/Dexie.js) and built using [LevelDB](https://github.com/Level/level). (In the browser, it runs on IndexedDB using [level.js](https://github.com/maxogden/level.js).
+managewell.github.io abstracts over the [DatArchive API](https://beakerbrowser.com/docs/apis/dat.html) to provide a simple database-like interface. It's inspired by [Dexie.js](https://github.com/dfahlander/Dexie.js) and built using [LevelDB](https://github.com/Level/level). (In the browser, it runs on IndexedDB using [level.js](https://github.com/maxogden/level.js).
 
-WebDB scans a set of source Dat archives for files that match a path pattern. Web DB caches and indexes those files so they can be queried easily and quickly. WebDB also provides a simple interface for adding, editing, and removing records from archives.
+managewell.github.io scans a set of source Dat archives for files that match a path pattern. Web DB caches and indexes those files so they can be queried easily and quickly. managewell.github.io also provides a simple interface for adding, editing, and removing records from archives.
 
-WebDB sits on top of Dat archives. It duplicates ingested data into IndexedDB, which acts as a throwaway cache. The cached data can be reconstructed at any time from the source Dat archives.
+managewell.github.io sits on top of Dat archives. It duplicates ingested data into IndexedDB, which acts as a throwaway cache. The cached data can be reconstructed at any time from the source Dat archives.
 
-WebDB treats individual files in the Dat archive as individual records in a table. As a result, there's a direct mapping for each table to a folder of JSON files. For instance, if you had a `posts` table, it might map to the `/posts/*.json` files. WebDB's mutators, e.g., `put`, `add`, `update`, simply writes records as JSON files in the `posts/` directory. WebDB's readers and query-ers, like `get()` and `where()`, read from the IndexedDB cache.
+managewell.github.io treats individual files in the Dat archive as individual records in a table. As a result, there's a direct mapping for each table to a folder of JSON files. For instance, if you had a `posts` table, it might map to the `/posts/*.json` files. managewell.github.io's mutators, e.g., `put`, `add`, `update`, simply writes records as JSON files in the `posts/` directory. managewell.github.io's readers and query-ers, like `get()` and `where()`, read from the IndexedDB cache.
 
-WebDB watches its source archives for changes to the JSON files that compose its records. When the files change, it syncs and reads the changes, then updates IndexedDB, keeping query results up-to-date. Roughly, the flow is: `put() -> archive/posts/12345.json -> indexer -> indexeddb -> get()`.
+managewell.github.io watches its source archives for changes to the JSON files that compose its records. When the files change, it syncs and reads the changes, then updates IndexedDB, keeping query results up-to-date. Roughly, the flow is: `put() -> archive/posts/12345.json -> indexer -> indexeddb -> get()`.
 
 ### Why not put all records in one file?
 
@@ -1722,7 +1722,7 @@ Replaced JSON-Schema validation with an open `validate` function. This was done 
 The `addSource()` and `removeSource()` methods were replaced with `indexArchive()`, `indexFile()`, `unindexArchive()`, and `unindexFile()`.
 The `indexArchive()` method also provides an option to disable watching.
 
-This change was made as we found controlling the index was an important part of using WebDB.
+This change was made as we found controlling the index was an important part of using managewell.github.io.
 Frequently we'd want to index an archive temporarily, for instance to view a user's profile on first visit.
 
 This new API gives better control for those use-cases, and no longer assumes you want to continue watching an archive after indexing it once.
