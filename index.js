@@ -11,11 +11,11 @@ const Indexer = require('./lib/indexer')
 const WebDBTable = require('./lib/table')
 const flatten = require('lodash.flatten')
 
-class WebDB extends EventEmitter {
+class managewell.github.io extends EventEmitter {
   constructor (name, opts = {}) {
     super()
     if (typeof window === 'undefined' && !opts.DatArchive) {
-      throw new Error('Must provide {DatArchive} opt when using WebDB outside the browser.')
+      throw new Error('Must provide {DatArchive} opt when using managewell.github.io outside the browser.')
     }
     this.level = false
     this.name = name
@@ -132,7 +132,7 @@ class WebDB extends EventEmitter {
     if (this.isOpen) {
       await this.close()
     }
-    await WebDB.delete(this.name)
+    await managewell.github.io.delete(this.name)
   }
 
   define (tableName, definition) {
@@ -159,7 +159,7 @@ class WebDB extends EventEmitter {
 
     // create our own new DatArchive instance
     archive = typeof archive === 'string' ? new (this.DatArchive)(archive) : archive
-    debug('WebDB.indexArchive', archive.url)
+    debug('managewell.github.io.indexArchive', archive.url)
     if (!(archive.url in this._archives)) {
       // store and process
       this._archives[archive.url] = archive
@@ -172,7 +172,7 @@ class WebDB extends EventEmitter {
   async unindexArchive (archive) {
     archive = typeof archive === 'string' ? new (this.DatArchive)(archive) : archive
     if (archive.url in this._archives) {
-      debug('WebDB.unindexArchive', archive.url)
+      debug('managewell.github.io.unindexArchive', archive.url)
       delete this._archives[archive.url]
       await Indexer.removeArchive(this, archive)
     }
@@ -224,5 +224,5 @@ class WebDB extends EventEmitter {
     })
   }
 }
-module.exports = WebDB
+module.exports = managewell.github.io
 
