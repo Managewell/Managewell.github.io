@@ -1,6 +1,6 @@
-# WebDB
+# AYCH Database for Website
 
-A database that reads and writes records on dat:// websites. [How it works](#how-it-works)
+This is a database project for website (WebDB) that reads and writes records on dat:// websites. [How it works](#how-it-works)
 
 ## Example
 
