@@ -1,7 +1,7 @@
 {
-  "name": "@beaker/webdb",
+  "name": "@beaker/managewell.github.io",
   "version": "4.3.1",
-  "description": "A database that reads and writes records on dat:// websites.",
+  "description": "This is a database project for website (WebDB) that reads and writes records on dat:// websites.",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -35,17 +35,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beakerbrowser/webdb.git"
+    "url": "git+https://github.com/managewell/managewell.github.io"
   },
   "keywords": [
     "beaker",
     "dat",
     "p2p"
   ],
-  "author": "Paul Frazee <pfrazee@gmail.com>",
-  "license": "MIT",
+  "author": "Jean Wallet <tokeneconomy@eclipso.eu>",
+  "license": "MIT", "AGPL",
   "bugs": {
-    "url": "https://github.com/beakerbrowser/webdb/issues"
+    "url": "https://github.com/managewell/managewell.github.io/issues"
   },
-  "homepage": "https://github.com/beakerbrowser/webdb#readme"
+  "homepage": "https://github.com/managewell/managewell.github.io#readme"
 }
